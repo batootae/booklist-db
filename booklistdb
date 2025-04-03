@@ -1,0 +1,55 @@
+"""Create a menu from which user can select to either add books, list books or quit
+This menu should be able to do the operations as well"""
+
+with open("booklist.txt","a+") as file:
+    file.seek(0)
+    content = file.read()
+
+
+
+booklist = []
+
+menu=""
+
+def add_books():
+    title = input("Enter the title of the book: ")
+    author = input("Enter Author's name: ")
+    year = input("Enter the year: ")
+    newbook = {"title":title,
+               "author":author,
+               "year":year}
+    
+    booklist.append(newbook)
+    
+    
+
+def listbook():
+    for books in booklist:
+        print(f" - {books['title']} written by {books['author']} {books['year']}")
+    print("\n")
+
+
+def showmenu():
+    menu = input("Select one of the options \n 1. 'a'dd books \n 2. 'l'ist books \n 3. 'q'uit \n  ")
+    menu = menu.lower().strip()
+    return menu
+
+menu = showmenu()
+
+while menu != "q":
+    if menu == "a":
+        print("Add your book \n")
+        add_books()
+        menu = showmenu()
+        
+    elif menu == "l":
+        print("Displaying Books")
+        listbook()
+        menu = showmenu()
+        
+    else:
+        print("Select the required option \n")
+        menu = showmenu()
+        
+else:
+    print("End")
