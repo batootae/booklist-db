@@ -18,15 +18,29 @@ def searchbook(sb):
     else:
         print("---Not found--- \n")
 
+def delbook(sb):
+    """For deleting book requested by user"""
+    for sbook in booklist:
+        if sbook['title'] == sb:
+            booklist.remove(sbook)
+            print("Book removed\n")
+            updatingdb()
+            break
+    else:
+        print("No such book in database\n")
+    
 def accessingbooklist():
+    """Funtion to access books from a file"""
     with open ("bookdb.txt", "a+") as bookdb:
         bookdb.seek(0)
         booklist = bookdb.read()
         return booklist
 
-#booklist = []
+
+#Converting the string back to list for workability
 booklist = eval(accessingbooklist())
 menu=""
+
 
 def add_books():
     title = input("Enter the title of the book: ").strip().lower()
@@ -69,6 +83,11 @@ while menu != "q":
         x = input("Enter book name: ").strip().lower()
         searchbook(x)
         menu = showmenu()
+    elif menu == "d":
+        dbook = input("Enter book name to be removed: ")
+        delbook(dbook)
+        menu = showmenu()
+        
         
     else:
         print("Select the required option \n")
